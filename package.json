@@ -9,11 +9,14 @@
     "axios": "^0.21.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
     "react-icons": "^4.1.0",
+    "react-loading": "^2.0.3",
     "react-loads": "^9.2.4",
     "react-loads-hook": "^7.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
