@@ -30,7 +30,7 @@ export default function App() {
     setUser({ token: "", userid: "", islogin: false })
   }
   return ((user.islogin) ? ( 
-    <div>
+    <div className="wrapper">
       <Router>
         <Header/>
         <Sidebar signOut={signOut}/>

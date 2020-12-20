@@ -3,6 +3,9 @@ import User from '../../pages/systemadmin/user/User'
 
 import { Route,  Switch } from 'react-router-dom';
 import Group from '../../pages/systemadmin/group/Group';
+import GroupLevel from '../../pages/masterdata/group/Group';
+import Role from '../../pages/masterdata/role/Role';
+import Menu from '../../pages/masterdata/menu/Menu';
 export default function Content() {
     return (
         <div>
@@ -29,6 +32,9 @@ export default function Content() {
                             <Switch>
                                 <Route path='/user' component={User} />
                                 <Route path='/grouplevel' component={Group} />
+                                <Route path='/group-m' component={GroupLevel} />
+                                <Route path='/role-m' component={Role} />
+                                <Route path='/menu-m' component={Menu} />
                             </Switch>
                             </div>
                         </div>

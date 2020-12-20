@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Add({setUsr}) {
+function Add({setItem}) {
     const [field, setField] = useState(
     {
         "userid": "",   
@@ -19,7 +19,7 @@ function Add({setUsr}) {
         const res = ApiService.post("http://localhost:6969/api/user",field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
-            setUsr(null)
+            setItem(null)
         })
     }
     return (
@@ -28,7 +28,7 @@ function Add({setUsr}) {
                 <form onSubmit={onSubmited}>
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Create User</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Create Data</h5>
                             <button id="btn-closemodaladd" type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>

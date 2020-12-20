@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 function Delete({item,setItem}) {
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.delete("http://localhost:6969/api/user",item)
+        const res = ApiService.delete("http://localhost:6969/api/group",item)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaldelete")).click()
             setItem(null)

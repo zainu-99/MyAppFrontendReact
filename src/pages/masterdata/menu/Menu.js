@@ -5,8 +5,8 @@ import Add from './Add';
 import Edit from './Edit';
 import Delete from './Delete';
 import ApiService from '../../../components/utils/ApiService';
-export default function User() {
-    let api = ApiService.get("http://localhost:6969/api/user")
+export default function Menu() {    
+    let api = ApiService.get("http://localhost:6969/api/menu")
     const [list, setList] = useState([])
     const [item, setItem] = useState(null)
     useEffect(() => {
@@ -23,13 +23,11 @@ export default function User() {
             <table className="table table-hover">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>User ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Adrress</th>
-                        <th>Gender</th>
+                        <th>MenuText</th>
+                        <th>Role</th>
+                        <th>Url</th>
+                        <th>Icon</th>
+                        <th>Sort</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -38,13 +36,11 @@ export default function User() {
                         list.length > 0 ?
                         list.map((itm, i) => (
                             <tr key={i}>
-                                <td>{i + 1}</td>
-                                <td>{itm.userid}</td>
-                                <td>{itm.name}</td>
-                                <td>{itm.email}</td>
-                                <td>{itm.phone}</td>
-                                <td>{itm.address}</td>
-                                <td>{itm.gender}</td>
+                                <td>{itm.menuText}</td>
+                                <td>{itm.role.name}</td>
+                                <td>{itm.url}</td>
+                                <td>{itm.icon}</td>
+                                <td>{itm.orderSort}</td>
                                 <td>
                                     <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> | 
                                     <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal"   className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>

@@ -44,7 +44,7 @@ export default function Menu({signOut}) {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/group-m"} className="nav-link">
+                            <Link to={"/menu-m"} className="nav-link">
                                 <FaIcons.FaRegCircle className="nav-icon" />
                                 <p>Menu Master</p>
                             </Link>
