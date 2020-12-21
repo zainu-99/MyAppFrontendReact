@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import Loading from '../../../components/utils/Loading';
 import Add from './Add';
@@ -13,7 +13,7 @@ export default function Group() {
         api.then(res => {
             setList(res.data.data)
         })
-    }, [item])
+    },[item])
 
     return (
         <div>
@@ -31,23 +31,21 @@ export default function Group() {
                 </thead>
                 <tbody>
                     {
-                        list.length > 0 ?
                         list.map((itm, i) => (
                             <tr key={i}>
                                 <td>{i + 1}</td>
                                 <td>{itm.name}</td>
                                 <td>{itm.remark}</td>
                                 <td>
-                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> | 
+                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> <span>&nbsp;</span>  
                                     <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal"   className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>
                                 </td>
                             </tr>
-                        )) :
-                       <tr><td colSpan="8"><Loading/></td></tr>
+                        ))
                     }
                 </tbody>
             </table>
-            <Add setItem={setItem} />
+            <Add list={{list, setList}} />
             { item !== null &&
             <div>
                 <Edit item = {item} setItem={setItem} />

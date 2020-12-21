@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Add({setItem}) {
+function Add({list}) {
     const [field, setField] = useState(
     {
         "HaveAccessView": true,
@@ -15,6 +15,8 @@ function Add({setItem}) {
         "controller": "",
         "url": "role"
     })
+    useEffect(() => {
+    })
     
     
     const onSubmited = e => {
@@ -22,7 +24,7 @@ function Add({setItem}) {
         const res = ApiService.post("http://localhost:6969/api/role",field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
-            setItem(null)
+            list.setList(i => [...i, res.data.data])
         })
     }
     return (
@@ -45,15 +47,15 @@ function Add({setItem}) {
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Controller </label>
-                                        <input onChange={e => setField({...field,controller: e.target.value})} value={field.controller} type="text" required className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => setField({...field,controller: e.target.value})} value={field.controller} type="text"  className="form-control" name="remark"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Url </label>
-                                        <input onChange={e => setField({...field,url: e.target.value})} value={field.url} type="text" required className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => setField({...field,url: e.target.value})} value={field.url} type="text"  className="form-control" name="remark"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Remark </label>
-                                        <input onChange={e => setField({...field,remark: e.target.value})} value={field.remark} type="text" required className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => setField({...field,remark: e.target.value})} value={field.remark} type="text"  className="form-control" name="remark"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Access</label><br/>

@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-import Axios from 'axios';
 import ApiService from '../components/utils/ApiService';
 
 export default function Login({verify,message}) {
@@ -19,7 +18,7 @@ export default function Login({verify,message}) {
             <div className="row justify-content-md-center">
                 <div className="col-6">
                     <br/><h1>Sign In</h1>
-                    <span className="text-warni">{(message != "")?message:""}</span>
+                    <span className="text-warni">{(message !== "")?message:""}</span>
                     <form onSubmit={onSubmited} method="post">
                         <div className="mb-3">
                             <label htmlFor="InputForEmail" className="form-label">UserID</label>

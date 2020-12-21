@@ -6,7 +6,7 @@ export default function Menu({signOut}) {
         <nav className="mt-2">
             <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li className="nav-item has-treeview menu-close">
-                    <a href="#" className="nav-link ">
+                    <a href="/#" className="nav-link ">
                         <FaIcons.FaUsersCog className="nav-icon" />
                         <p>Admin System<i className="right fas fa-angle-left" /></p>
                     </a>
@@ -26,45 +26,45 @@ export default function Menu({signOut}) {
                     </ul>
                 </li>
                 <li className="nav-item has-treeview menu-close">
-                    <a href="#" className="nav-link ">
+                    <a href="/#" className="nav-link ">
                         <FaIcons.FaDatabase className="nav-icon" />
                         <p>Master Data<i className="right fas fa-angle-left" /></p>
                     </a>
                     <ul className="nav nav-treeview">
                         <li className="nav-item">
-                            <Link to={"/role-m"} className="nav-link">
+                            <Link to={"/role-m"} className="nav-link item-menu">
                                 <FaIcons.FaRegCircle className="nav-icon" />
-                                <p>Role Master</p>
+                                <p>Role</p>
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/group-m"} className="nav-link">
+                            <Link to={"/group-m"} className="nav-link item-menu">
                                 <FaIcons.FaRegCircle className="nav-icon" />
-                                <p>Group Master</p>
+                                <p>Group</p>
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/menu-m"} className="nav-link">
+                            <Link to={"/menu-m"} className="nav-link item-menu">
                                 <FaIcons.FaRegCircle className="nav-icon" />
-                                <p>Menu Master</p>
+                                <p>Menu</p>
                             </Link>
                         </li>
                     </ul>
                 </li>
                 <li className="nav-item has-treeview menu-close">
-                    <a href="#" className="nav-link ">
+                    <a href="/#" className="nav-link ">
                         <FaIcons.FaCog className="nav-icon" />
                         <p>Setting<i className="right fas fa-angle-left" /></p>
                     </a>
                     <ul className="nav nav-treeview">
                         <li className="nav-item">
-                            <Link to={"/role-m"} className="nav-link">
+                            <Link to={"/changeprofile"} className="nav-link item-menu">
                                 <FaIcons.FaRegCircle className="nav-icon" />
                                 <p>Change Profile</p>
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/group-m"} className="nav-link">
+                            <Link to={"/changepassword"} className="nav-link item-menu">
                                 <FaIcons.FaRegCircle className="nav-icon" />
                                 <p>Change Password</p>
                             </Link>
@@ -72,7 +72,7 @@ export default function Menu({signOut}) {
                     </ul>
                 </li>
                 <li className="nav-item">
-                    <a onClick={signOut} className="nav-link">
+                    <a href="/#" onClick={signOut} className="nav-link item-menu">
                         <i className="nav-icon fas fa-sign-out-alt" />
                         <p>Logout</p>
                     </a>

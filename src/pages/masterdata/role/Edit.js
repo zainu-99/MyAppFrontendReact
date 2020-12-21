@@ -36,15 +36,15 @@ function Edit({item,setItem}) {
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Controller </label>
-                                        <input onChange={e => (setField({...field,controller: e.target.value},setItem({...item,controller:e.target.value})))} value={item.controller} type="text" required className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => (setField({...field,controller: e.target.value},setItem({...item,controller:e.target.value})))} value={item.controller} type="text" className="form-control" name="remark"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Url </label>
-                                        <input onChange={e => (setField({...field,url: e.target.value},setItem({...item,url:e.target.value})))} value={item.url} type="text" required className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => (setField({...field,url: e.target.value},setItem({...item,url:e.target.value})))} value={item.url} type="text" className="form-control" name="remark"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Remark </label>
-                                        <input onChange={e => (setField({...field,remark: e.target.value},setItem({...item,remark:e.target.value})))} value={item.remark} type="text" required className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => (setField({...field,remark: e.target.value},setItem({...item,remark:e.target.value})))} value={item.remark} type="text" className="form-control" name="remark"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Access</label><br/>
