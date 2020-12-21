@@ -54,7 +54,7 @@ export default function Role() {
                                         <td><input disabled={true} type="checkbox" checked={itm.HaveAccessDelete} /></td>
                                         <td><input disabled={true} type="checkbox" checked={itm.HaveAccessPrint} /></td>
                                         <td><input disabled={true} type="checkbox" checked={itm.HaveAccessCustom} /></td>
-                                        <td nowrap>
+                                        <td nowrap={"nowrap"}>
                                             <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> 
                                             <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal" className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>
                                         </td>
