@@ -54,8 +54,8 @@ function Edit({item,setItem}) {
                                         <label>Gender </label>
                                         <div>
                                             <div className="checkbox">
-                                                <input onChange={e => (setField({...field,gender: (e.target.value==false?"F":"M")}),setItem({...item,gender: (e.target.value==false?"F":"M")}))} checked={item.gender == "M"? true:false} id="cballshow" name="gender" type="radio" /> Male &nbsp;
-                                                <input  checked={item.gender == "F"? true:false} id="cballshow" name="gender" type="radio" /> Female
+                                                <input onChange={e => (setField({...field,gender: (e.target.checked===false?"F":"M")}),setItem({...item,gender: (e.target.checked===false?"F":"M")}))} checked={item.gender === "M"? true:false} id="cballshow" name="gender" type="radio" /> Male &nbsp;
+                                                <input onChange={e => (setField({...field,gender: (e.target.checked===false?"M":"F")}),setItem({...item,gender: (e.target.checked===false?"M":"F")}))}  checked={item.gender === "F"? true:false} id="cballshow" name="gender" type="radio" /> Female
                                             </div>
                                         </div>
                                     </div>

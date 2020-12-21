@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 function Delete({item,setItem}) {
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.delete("http://localhost:6969/api/group",item)
+        const res = ApiService.delete("http://localhost:6969/api/menu",{_id:item._id})
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaldelete")).click()
             setItem(null)
@@ -18,14 +18,14 @@ function Delete({item,setItem}) {
                 <form onSubmit={onSubmited}>
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Delete User?</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Delete Data?</h5>
                             <button id="btn-closemodaldelete" type="button" className="close d-none" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div className="modal-footer">
                             <button type="reset" className="btn btn-sm btn-warning text-light" data-dismiss="modal">Cancel</button>
-                            <button type="submit" className="btn btn-sm btn-success">Save</button>
+                            <button type="submit" className="btn btn-sm btn-success">DO IT</button>
                         </div>
                     </div>
                 </form>

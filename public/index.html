@@ -23,5 +23,28 @@
     <script src="%PUBLIC_URL%/plugins/jquery/jquery.min.js"></script>
     <script src="%PUBLIC_URL%/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="%PUBLIC_URL%/dist/js/adminlte.min.js"></script>
+    <script>
+      $(document).ready(function() {
+      // $(".item-menu").each(function( index ) {if((window.location.href).includes($( this ).attr('href')))$( this ).addClass("active" );});
+      // $(".has-treeview").each(function( index ) {if($(this).find('a.active').length !== 0)$( this ).addClass( "menu-open" ); else $( this ).removeClass( "menu-close" );});
+      
+      if (typeof(Storage) !== "undefined")
+      {
+        if(localStorage.getItem("toggle-colapes")=== null)
+          localStorage.setItem("toggle-colapes", false);
+        if(localStorage.getItem("toggle-colapes") === 'true')
+          $('body').addClass("sidebar-collapse");
+        else
+          $('body').removeClass("sidebar-collapse");
+      }
+      $('#togglemenu').on('click', function() {
+           $(this).trigger('classChange')
+      });
+      $('#togglemenu').on('classChange', function() {
+          var isColllapse = !(localStorage.getItem("toggle-colapes") === 'true'); 
+          localStorage.setItem("toggle-colapes", isColllapse);
+      });
+  } );
+  </script>
   </body>
 </html>

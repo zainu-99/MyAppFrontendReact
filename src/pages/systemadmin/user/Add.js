@@ -1,7 +1,7 @@
-import React,{ useEffect, useState } from 'react'
+import React,{ useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Add({setItem}) {
+function Add({list}) {
     const [field, setField] = useState(
     {
         "userid": "",   
@@ -19,7 +19,7 @@ function Add({setItem}) {
         const res = ApiService.post("http://localhost:6969/api/user",field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
-            setItem(null)
+            list.setList(i => [...i, res.data.data])
         })
     }
     return (
@@ -60,8 +60,8 @@ function Add({setItem}) {
                                         <label>Gender </label>
                                         <div>
                                             <div className="checkbox">
-                                                <input onChange={e => setField({...field,gender: (e.target.value==false?"F":"M")})} value={field.gender} id="cballshow" name="gender" type="radio" /> Male &nbsp;
-                                                <input id="cballshow" name="gender" type="radio" /> Female
+                                                <input onChange={e => setField({...field,gender: (e.target.value===false?"F":"M")})} value="M" id="cballshow" name="gender" type="radio" /> Male &nbsp;
+                                                <input id="cballshow" name="gender" type="radio" value="F" /> Female
                                             </div>
                                         </div>
                                     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import Loading from '../../../components/utils/Loading';
 import Add from './Add';
@@ -13,7 +13,7 @@ export default function Role() {
         api.then(res => {
             setList(res.data.data)
         })
-    }, [item])
+    },[item])
 
     return (
         <div>
@@ -40,7 +40,6 @@ export default function Role() {
                     </thead>
                     <tbody>
                         {
-                            list.length > 0 ?
                                 list.map((itm, i) => (
                                     <tr key={i}>
                                         <td>{i + 1}</td>
@@ -54,18 +53,17 @@ export default function Role() {
                                         <td><input disabled={true} type="checkbox" checked={itm.HaveAccessDelete} /></td>
                                         <td><input disabled={true} type="checkbox" checked={itm.HaveAccessPrint} /></td>
                                         <td><input disabled={true} type="checkbox" checked={itm.HaveAccessCustom} /></td>
-                                        <td nowrap>
-                                            <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> 
+                                        <td nowrap="nowrap">
+                                            <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> <span>&nbsp;</span> 
                                             <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal" className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>
                                         </td>
                                     </tr>
-                                )) :
-                                <tr><td colSpan="8"><Loading /></td></tr>
+                                )) 
                         }
                     </tbody>
                 </table>
             </div>
-            <Add setItem={setItem} />
+            <Add list={{list, setList}} />
             { item !== null &&
                 <div>
                     <Edit item={item} setItem={setItem} />

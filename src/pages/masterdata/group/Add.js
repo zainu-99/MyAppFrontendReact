@@ -1,12 +1,15 @@
 import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Add({setItem}) {
+function Add({list}) {
     const [field, setField] = useState(
     {
         "name": "",   
         "remark": ""
     })
+
+    useEffect(() => {
+    }, [])
     
     
     const onSubmited = e => {
@@ -14,7 +17,7 @@ function Add({setItem}) {
         const res = ApiService.post("http://localhost:6969/api/group",field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
-            setItem(null)
+            list.setList(i => [...i, res.data.data])
         })
     }
     return (
