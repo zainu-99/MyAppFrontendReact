@@ -1,43 +1,44 @@
-import React,{ useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Add({list}) {
-    
+import Option from './Option';
+function Add({ list }) {
+
     const [field, setField] = useState(
-    {
-        "menuText": "",
-        "remark": "",
-        "icon": "",
-        "orderSort": "",
-        "role": "",
-        "parent": null,
-        "child": []
-    })
+        {
+            "menuText": "",
+            "remark": "",
+            "icon": "",
+            "orderSort": "",
+            "role": "",
+            "parent": null,
+            "child": []
+        })
 
     const [roles, setRoles] = useState([])
     const [parent, setParent] = useState([])
     useEffect(() => {
-        const resrole = ApiService.get("http://localhost:6969/api/role",field)
-        resrole.then(res=>{
+        const resrole = ApiService.get("http://localhost:6969/api/role", field)
+        resrole.then(res => {
             setRoles(res.data.data)
         })
-        const resparent = ApiService.get("http://localhost:6969/api/menu",field)
-        resparent.then(res=>{
+        const resparent = ApiService.get("http://localhost:6969/api/menu", field)
+        resparent.then(res => {
             setParent(res.data.data)
         })
     }, [list])
-      
+
     const onSubmited = e => {
         e.preventDefault();
         console.log(field)
-        const res = ApiService.post("http://localhost:6969/api/menu",field)
-        res.then(res=>{
+        const res = ApiService.post("http://localhost:6969/api/menu", field)
+        res.then(res => {
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
             list.setList(i => [...i, res.data.data])
         })
     }
     return (
-<div className="modal fade" id="CreateFormModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="CreateFormModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
                 <form onSubmit={onSubmited}>
                     <div className="modal-content">
@@ -52,44 +53,43 @@ function Add({list}) {
                                 <div className="form-group">
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>MenuText </label>
-                                        <input onChange={e => setField({...field,menuText: e.target.value})} value={field.menuText} type="text" required className="form-control" name="menuText"  placeholder="" />
+                                        <input onChange={e => setField({ ...field, menuText: e.target.value })} value={field.menuText} type="text" required className="form-control" name="menuText" placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Role </label>
-                                        <select className="form-control" onChange={e => setField({...field,role: e.target.value})} value={field.role} required>
+                                        <select className="form-control" onChange={e => setField({ ...field, role: e.target.value })} value={field.role} required>
                                             <option value="" >--Select Role--</option>
                                             {
-                                                    roles.length > 0 ?
+                                                roles.length > 0 ?
                                                     roles.map((itm, i) => (
                                                         <option key={i} value={itm._id}>{itm.name} ❯ url: {itm.url}  </option>
-                                                    )) :""
+                                                    )) : ""
                                             }
                                         </select>
                                     </div>
-                                    <div className="form-group" style={{ display: '' }}>
+                                    <div className="form-group">
                                         <label>Parent </label>
-                                        <select className="form-control" required>
-                                            <option value="" >--Select Role--</option>
+                                        <select className="form-control"  onChange={e => setField({ ...field, parent: e.target.value })} value={field.parent}>
+                                            <option value="" >--No Parent--</option>
                                             {
-                                                    parent.length > 0 ?
-                                                    parent.map((itm, i) => (
-                                                        <option key={i} value={itm._id}>{itm.menuText} </option>
-                                                    )) :""
+                                                parent.map((itm, i) => (
+                                                    <Option key={i} item={itm} setItem={setParent} sparator={""} />
+                                                ))
                                             }
                                         </select>
                                     </div>
 
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Icon </label>
-                                        <input onChange={e => setField({...field,icon: e.target.value})} value={field.icon} type="text" required className="form-control" name="icon"  placeholder="" />
+                                        <input onChange={e => setField({ ...field, icon: e.target.value })} value={field.icon} type="text" required className="form-control" name="icon" placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Order Sort </label>
-                                        <input onChange={e => setField({...field,orderSort: e.target.value})} value={field.orderSort} type="number" required className="form-control" name="ordersort"  placeholder="" />
+                                        <input onChange={e => setField({ ...field, orderSort: e.target.value })} value={field.orderSort} type="number" required className="form-control" name="ordersort" placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Remark </label>
-                                        <input onChange={e => setField({...field,remark: e.target.value})} value={field.remark} type="text" required className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => setField({ ...field, remark: e.target.value })} value={field.remark} type="text" required className="form-control" name="remark" placeholder="" />
                                     </div>
                                 </div>
                             </div>

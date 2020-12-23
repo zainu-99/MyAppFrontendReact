@@ -1,6 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
+import Option from './Option';
 function Edit({item,setItem}) {
     const [field, setField] = useState(item)
 
@@ -65,12 +66,11 @@ function Edit({item,setItem}) {
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Parent </label>
                                         <select className="form-control"  onChange={e => (setField({...field,parent: e.target.value}),setItem({...item,parent: e.target.value}))} value={item.parent}>
-                                            <option value="0" >--No Parent--</option>
+                                        <option value="" >--No Parent--</option>
                                             {
-                                                    parent.length > 0 ?
-                                                    parent.map((itm, i) => (
-                                                        <option  key={i} value={itm._id}>{itm.menuText}</option>
-                                                    )) :""
+                                                parent.map((itm, i) => (
+                                                    <Option key={i} item={itm} setItem={setParent} sparator={""} />
+                                                ))
                                             }
                                         </select>
                                     </div>

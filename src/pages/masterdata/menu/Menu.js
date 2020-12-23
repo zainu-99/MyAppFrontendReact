@@ -4,6 +4,7 @@ import Loading from '../../../components/utils/Loading';
 import Add from './Add';
 import Edit from './Edit';
 import Delete from './Delete';
+import Item from './Item';
 import ApiService from '../../../components/utils/ApiService';
 export default function Menu() {    
     let api = ApiService.get("http://localhost:6969/api/menu")
@@ -34,17 +35,7 @@ export default function Menu() {
                 <tbody>
                     {
                         list.map((itm, i) => (
-                            <tr key={i}>
-                                <td>{itm.menuText}</td>
-                                <td>{itm.role.name}</td>
-                                <td>{itm.role.url}</td>
-                                <td>{itm.icon}</td>
-                                <td>{itm.orderSort}</td>
-                                <td>
-                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> <span>&nbsp;</span> 
-                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal"   className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>
-                                </td>
-                            </tr>
+                            <Item key={i} item = {itm} setItem={setItem} sparator={""} />
                         )) 
                     }
                 </tbody>
