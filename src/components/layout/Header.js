@@ -8,7 +8,7 @@ export default function Header() {
       <a className="nav-link" id="togglemenu" data-widget="pushmenu" href="/#" role="button"><i className="fas fa-bars" /></a>
     </li>  
   </ul>
-  <form className="form-inline ml-3">
+  {/* <form className="form-inline ml-3" >
     <div className="input-group input-group-sm">
       <input className="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" />
       <div className="input-group-append">
@@ -17,8 +17,8 @@ export default function Header() {
         </button>
       </div>
     </div>
-  </form>
-  <ul className="navbar-nav ml-auto">
+  </form> */}
+  {/* <ul className="navbar-nav ml-auto">
     <li className="nav-item dropdown">
       <a className="nav-link" data-toggle="dropdown" href="/#">
         <i className="far fa-comments" />
@@ -40,7 +40,8 @@ export default function Header() {
     <li className="nav-item">
       <a className="nav-link" data-widget="control-sidebar" data-slide="true" href="/#" role="button"><i className="fas fa-th-large" /></a>
     </li>
-  </ul>
+  </ul> */}
+
 </nav>
 
     )

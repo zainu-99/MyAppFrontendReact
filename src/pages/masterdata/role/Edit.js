@@ -1,17 +1,18 @@
 import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Edit({item,setItem}) {
+function Edit({item,reload}) {
     const [field, setField] = useState(item)
     useEffect(() => {
         setField(item)
     }, [item])
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.put("http://localhost:6969/api/role",field)
+        let endpoint = ApiService.EndPoint.role
+        const res = ApiService.put(endpoint,field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaledit")).click()    
-            setItem(null)
+            reload()
         })
         
     }
@@ -32,28 +33,29 @@ function Edit({item,setItem}) {
                                 <div className="form-group">
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Name </label>
-                                        <input onChange={e => (setField({...field,name: e.target.value},setItem({...item,name:e.target.value})))} value={item.name} type="text" required className="form-control" name="name"  placeholder="" />
+                                        <input onChange={e => setField({...field,name: e.target.value})} value={field.name} type="text" required className="form-control" name="name"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Controller </label>
-                                        <input onChange={e => (setField({...field,controller: e.target.value},setItem({...item,controller:e.target.value})))} value={item.controller} type="text" className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => setField({...field,controller: e.target.value})} value={field.controller} type="text"  className="form-control" name="remark"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Url </label>
-                                        <input onChange={e => (setField({...field,url: e.target.value},setItem({...item,url:e.target.value})))} value={item.url} type="text" className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => setField({...field,url: e.target.value})} value={field.url} type="text"  className="form-control" name="remark"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Remark </label>
-                                        <input onChange={e => (setField({...field,remark: e.target.value},setItem({...item,remark:e.target.value})))} value={item.remark} type="text" className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => setField({...field,remark: e.target.value})} value={field.remark} type="text"  className="form-control" name="remark"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Access</label><br/>
-                                          View <input onChange={e => (setField({...field,HaveAccessView: e.target.checked}),setItem({...item,HaveAccessView: e.target.checked}))} checked={item.HaveAccessView} type="checkbox"   name="remark"  placeholder="" />
-                                        | Store <input onChange={e => (setField({...field,HaveAccessCreate: e.target.checked}),setItem({...item,HaveAccessCreate: e.target.checked}))} checked={item.HaveAccessCreate} type="checkbox"   name="remark"  placeholder="" />
-                                        | Edit <input onChange={e => (setField({...field,HaveAccessEdit: e.target.checked}),setItem({...item,HaveAccessEdit: e.target.checked}))} checked={item.HaveAccessEdit} type="checkbox"   name="remark"  placeholder="" />
-                                        | Delete <input onChange={e => (setField({...field,HaveAccessDelete: e.target.checked}),setItem({...item,HaveAccessDelete: e.target.checked}))} checked={item.HaveAccessDelete} type="checkbox"   name="remark"  placeholder="" />
-                                        | Print <input onChange={e => (setField({...field,HaveAccessPrint: e.target.checked}),setItem({...item,HaveAccessPrint: e.target.checked}))} checked={item.HaveAccessPrint} type="checkbox"   name="remark"  placeholder="" />
-                                        | Custom <input onChange={e => (setField({...field,HaveAccessCustom: e.target.checked}),setItem({...item,HaveAccessCustom: e.target.checked}))} checked={item.HaveAccessCustom} type="checkbox"   name="remark"  placeholder="" />
+                                        <input onChange={e => setField({...field,HaveAccessView: e.target.checked})} checked={field.HaveAccessView} type="checkbox"   name="remark"  placeholder="" />
+                                        <span>&nbsp;</span>View<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessCreate: e.target.checked})} checked={field.HaveAccessCreate} type="checkbox"   name="remark"  placeholder="" />
+                                        <span>&nbsp;</span>Store<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessEdit: e.target.checked})} checked={field.HaveAccessEdit} type="checkbox"   name="remark"  placeholder="" />
+                                        <span>&nbsp;</span>Edit<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessDelete: e.target.checked})} checked={field.HaveAccessDelete} type="checkbox"   name="remark"  placeholder="" />
+                                        <span>&nbsp;</span>Delete<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessPrint: e.target.checked})} checked={field.HaveAccessPrint} type="checkbox"   name="remark"  placeholder="" />
+                                        <span>&nbsp;</span>Print<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessCustom: e.target.checked})} checked={field.HaveAccessCustom} type="checkbox"   name="remark"  placeholder="" />
+                                        <span>&nbsp;</span>Custom                                   
                                     </div>
                                 </div>
                             </div>

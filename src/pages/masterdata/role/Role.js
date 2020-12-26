@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import Loading from '../../../components/utils/Loading';
 import Add from './Add';
@@ -6,14 +6,18 @@ import Edit from './Edit';
 import Delete from './Delete';
 import ApiService from '../../../components/utils/ApiService';
 export default function Role() {
-    let api = ApiService.get("http://localhost:6969/api/role")
+    let endpoint = ApiService.EndPoint.role
     const [list, setList] = useState([])
     const [item, setItem] = useState(null)
     useEffect(() => {
-        api.then(res => {
+        reload()
+    },[])
+    const reload = ()=>{
+        let api = ApiService.get(endpoint)
+        api.then(res=>{
             setList(res.data.data)
         })
-    }, [item])
+    }
 
     return (
         <div>
@@ -48,14 +52,14 @@ export default function Role() {
                                         <td>{itm.controller}</td>
                                         <td>{itm.url}</td>
                                         <td>{itm.remark}</td>
-                                        <td><input disabled={true} type="checkbox" checked={itm.HaveAccessView} /></td>
-                                        <td><input disabled={true} type="checkbox" checked={itm.HaveAccessCreate} /></td>
-                                        <td><input disabled={true} type="checkbox" checked={itm.HaveAccessEdit} /></td>
-                                        <td><input disabled={true} type="checkbox" checked={itm.HaveAccessDelete} /></td>
-                                        <td><input disabled={true} type="checkbox" checked={itm.HaveAccessPrint} /></td>
-                                        <td><input disabled={true} type="checkbox" checked={itm.HaveAccessCustom} /></td>
+                                        <td>{itm.HaveAccessView?"✓":""}</td>
+                                        <td>{itm.HaveAccessCreate?"✓":""}</td>
+                                        <td>{itm.HaveAccessEdit?"✓":""}</td>
+                                        <td>{itm.HaveAccessDelete?"✓":""}</td>
+                                        <td>{itm.HaveAccessPrint?"✓":""}</td>
+                                        <td>{itm.HaveAccessCustom?"✓":""}</td>
                                         <td nowrap={"nowrap"}>
-                                            <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> 
+                                            <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> <span>&nbsp;</span>
                                             <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal" className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>
                                         </td>
                                     </tr>
@@ -65,12 +69,12 @@ export default function Role() {
                     </tbody>
                 </table>
             </div>
-            <Add setItem={setItem} />
+            <Add reload={reload} />
             { item !== null &&
-                <div>
-                    <Edit item={item} setItem={setItem} />
-                    <Delete item={item} setItem={setItem} />
-                </div>
+            <div>
+                <Edit item = {item} reload={reload} />
+                <Delete item ={item} reload={reload}/>
+            </div>
             }
         </div>
     )

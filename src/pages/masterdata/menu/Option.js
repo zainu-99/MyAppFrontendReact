@@ -1,18 +1,19 @@
 import React from 'react'
-import * as FaIcons from "react-icons/fa";
-function Option({item,setItem,sparator}) {
-    return (
-        <>
-            <option style={sparator===""?{fontWeight:'bold'}:{}} value={item._id}>
-                {sparator +(sparator!==""?"❯ ":"")+ item.menuText}
-            </option>
-            {
-                item.child.map((itm, i) => (
-                    <Option key={i} item={itm} setItem={setItem} sparator={sparator + "\u00A0"+"\u00A0"+"\u00A0"} />
-                ))
-            }
-        </>
-    )
+function Option({ item, setID, sparator }) {
+    if (setID !== item._id) {
+        return (
+            <>
+                <option style={sparator === "" ? { fontWeight: 'bold' } : {}} value={item._id}>
+                    {sparator + (sparator !== "" ? "❯ " : "") + item.menuText}
+                </option>
+                {
+                    item.children.map((itm, i) => (
+                        <Option key={i} item={itm} setID={setID} sparator={sparator + "\u00A0\u00A0\u00A0"} />
+                    ))
+                }
+            </>
+        )
+    } else return (<></>)
 }
 
 export default Option

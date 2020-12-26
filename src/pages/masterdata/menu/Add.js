@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
 import Option from './Option';
-function Add({ list }) {
+function Add({ reload,list }) {
 
     const [field, setField] = useState(
         {
@@ -12,29 +12,36 @@ function Add({ list }) {
             "orderSort": "",
             "role": "",
             "parent": null,
-            "child": []
+            "children": []
         })
 
     const [roles, setRoles] = useState([])
     const [parent, setParent] = useState([])
     useEffect(() => {
-        const resrole = ApiService.get("http://localhost:6969/api/role", field)
+        getrel()
+    }, [list])
+
+    const getrel = ()=>{
+        let endpoint = ApiService.EndPoint.role
+        const resrole = ApiService.get(endpoint, field)
         resrole.then(res => {
             setRoles(res.data.data)
         })
-        const resparent = ApiService.get("http://localhost:6969/api/menu", field)
+        endpoint = ApiService.EndPoint.menu 
+        const resparent = ApiService.get(endpoint, field)
         resparent.then(res => {
             setParent(res.data.data)
         })
-    }, [list])
+    }
 
     const onSubmited = e => {
         e.preventDefault();
-        console.log(field)
-        const res = ApiService.post("http://localhost:6969/api/menu", field)
+        let endpoint = ApiService.EndPoint.menu 
+        const res = ApiService.post(endpoint, field)
         res.then(res => {
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
-            list.setList(i => [...i, res.data.data])
+            getrel()
+            reload()
         })
     }
     return (
@@ -49,7 +56,6 @@ function Add({ list }) {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <div>
                                 <div className="form-group">
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>MenuText </label>
@@ -57,8 +63,8 @@ function Add({ list }) {
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Role </label>
-                                        <select className="form-control" onChange={e => setField({ ...field, role: e.target.value })} value={field.role} required>
-                                            <option value="" >--Select Role--</option>
+                                        <select className="form-control" onChange={e => setField({ ...field, role: e.target.value })} required>
+                                            <option value >--Select Role--</option>
                                             {
                                                 roles.length > 0 ?
                                                     roles.map((itm, i) => (
@@ -69,11 +75,11 @@ function Add({ list }) {
                                     </div>
                                     <div className="form-group">
                                         <label>Parent </label>
-                                        <select className="form-control"  onChange={e => setField({ ...field, parent: e.target.value })} value={field.parent}>
+                                        <select className="form-control"  onChange={e => setField({ ...field, parent: e.target.value })} >
                                             <option value="" >--No Parent--</option>
                                             {
                                                 parent.map((itm, i) => (
-                                                    <Option key={i} item={itm} setItem={setParent} sparator={""} />
+                                                    <Option key={i}  item={itm} setID={null} sparator={""} />
                                                 ))
                                             }
                                         </select>
@@ -92,8 +98,6 @@ function Add({ list }) {
                                         <input onChange={e => setField({ ...field, remark: e.target.value })} value={field.remark} type="text" required className="form-control" name="remark" placeholder="" />
                                     </div>
                                 </div>
-                            </div>
-
                         </div>
                         <div className="modal-footer">
                             <button type="reset" className="btn btn-sm btn-warning text-light" data-dismiss="modal">Cancel</button>

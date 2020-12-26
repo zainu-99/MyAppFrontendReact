@@ -1,7 +1,7 @@
 import React,{ useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Add({list}) {
+function Add({reload}) {
     const [field, setField] = useState(
     {
         "userid": "",   
@@ -16,10 +16,11 @@ function Add({list}) {
     
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.post("http://localhost:6969/api/user",field)
+        let endpoint = ApiService.EndPoint.user
+        const res = ApiService.post(endpoint,field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
-            list.setList(i => [...i, res.data.data])
+            reload()
         })
     }
     return (
@@ -60,8 +61,8 @@ function Add({list}) {
                                         <label>Gender </label>
                                         <div>
                                             <div className="checkbox">
-                                                <input onChange={e => setField({...field,gender: (e.target.value===false?"F":"M")})} value="M" id="cballshow" name="gender" type="radio" /> Male &nbsp;
-                                                <input id="cballshow" name="gender" type="radio" value="F" /> Female
+                                                <input onChange={e => setField({...field,gender: (e.target.value===false?"F":"M")})} value="M"  name="gender" type="radio" /> Male &nbsp;
+                                                <input  name="gender" type="radio" value="F" /> Female
                                             </div>
                                         </div>
                                     </div>

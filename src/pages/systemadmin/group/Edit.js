@@ -2,7 +2,7 @@ import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
 import Option from './Option';
-function Edit({item,setItem}) {
+function Edit({item,reload}) {
     const [field, setField] = useState(item)
 
     useEffect(() => {
@@ -12,22 +12,25 @@ function Edit({item,setItem}) {
     const [group, setGroup] = useState([])
     const [parent, setParent] = useState([])
     useEffect(() => {
-        const resgroup = ApiService.get("http://localhost:6969/api/group", field)
+        let endpoint = ApiService.EndPoint.group
+        const resgroup = ApiService.get(endpoint, field)
         resgroup.then(res => {
             setGroup(res.data.data)
         })
-        const resparent = ApiService.get("http://localhost:6969/api/grouplevel", field)
+        endpoint = ApiService.EndPoint.grouplevel
+        const resparent = ApiService.get(endpoint, field)
         resparent.then(res => {
             setParent(res.data.data)
         })
-    }, [])
+    }, [item])
 
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.put("http://localhost:6969/api/menu",field)
+        let endpoint = ApiService.EndPoint.grouplevel
+        const res = ApiService.put(endpoint,field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaledit")).click()    
-            setItem(null)
+            reload()
         })
         
     }
@@ -48,30 +51,30 @@ function Edit({item,setItem}) {
                                 <div className="form-group">
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Group </label>
-                                        <select className="form-control" onChange={e => (setField({...field,group: e.target.value}),setItem({...item,group: e.target.value}))} value={item.group._id} required>
-                                            <option value="" >--Select Role--</option>
+                                        <select className="form-control" onChange={e => setField({ ...field, group: e.target.value })} value={field.group._id} required>
+                                            <option value >--Select Role--</option>
                                             {
-                                                    group.length > 0 ?
-                                                    group.map((itm, i) => (
-                                                        <option key={i} value={itm._id}>{itm.name} ❯ url: {itm.url}  </option>
-                                                    )) :""
+                                                group.length > 0 ?
+                                                group.map((itm, i) => (
+                                                        <option key={i} value={itm._id}>{itm.name} | (Remark: {itm.remark})  </option>
+                                                    )) : ""
                                             }
                                         </select>
-                                    </div>
-                                    <div className="form-group" style={{ display: '' }}>
+                                    </div> 
+                                    <div className="form-group">
                                         <label>Parent </label>
-                                        <select className="form-control"  onChange={e => (setField({...field,parent: e.target.value}),setItem({...item,parent: e.target.value}))} value={item.parent}>
-                                        <option value="" >--No Parent--</option>
+                                        <select className="form-control"  onChange={e => setField({ ...field, parent: (e.target.value===""?null:e.target.value) })} value={(field.parent===null?"":field.parent)}>
+                                            <option value="">--No Parent--</option>
                                             {
                                                 parent.map((itm, i) => (
-                                                    <Option key={i} item={itm} setItem={setParent} sparator={""} />
+                                                    <Option key={i} item={itm} setID={field._id} sparator={""} />
                                                 ))
                                             }
                                         </select>
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Remark </label>
-                                        <input onChange={e => (setField({...field,remark: e.target.value}),setItem({...item,remark: e.target.value}))} value={item.remark} type="text" required className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => setField({ ...field, remark: e.target.value })} value={field.remark} type="text" required className="form-control" name="menuText" placeholder="" />
                                     </div>
                                 </div>
                             </div>

@@ -1,17 +1,18 @@
 import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Edit({item,setItem}) {
+function Edit({item,reload}) {
     const [field, setField] = useState(item)
     useEffect(() => {
         setField(item)
     }, [item])
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.put("http://localhost:6969/api/user",field)
+        let endpoint = ApiService.EndPoint.user
+        const res = ApiService.put(endpoint,field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaledit")).click()    
-            setItem(null)
+            reload()
         })
         
     }
@@ -32,30 +33,30 @@ function Edit({item,setItem}) {
                                 <div className="form-group">
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>User ID </label>
-                                        <input onChange={e => (setField({...field,userid: e.target.value},setItem({...item,userid:e.target.value})))} value={item.userid}  type="text" required className="form-control" name="userid"  placeholder="" />
+                                        <input onChange={e => setField({...field,userid: e.target.value})} value={field.userid}  type="text" required className="form-control" name="userid"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Name </label>
-                                        <input onChange={e => (setField({...field,name: e.target.value},setItem({...item,name:e.target.value})))} value={item.name} type="text" required className="form-control" name="name"  placeholder="" />
+                                        <input onChange={e => setField({...field,name: e.target.value})} value={field.name} type="text" required className="form-control" name="name"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Email </label>
-                                        <input onChange={e => (setField({...field,email: e.target.value},setItem({...item,email:e.target.value})))} value={item.email} type="email" required className="form-control" name="email"  placeholder="" />
+                                        <input onChange={e => setField({...field,email: e.target.value})} value={field.email} type="email" required className="form-control" name="email"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>No HP </label>
-                                        <input onChange={e => (setField({...field,phone: e.target.value},setItem({...item,phone:e.target.value})))} value={item.phone} type="telp" required className="form-control" name="no_hp"  placeholder="" />
+                                        <input onChange={e => setField({...field,phone: e.target.value})} value={field.phone} type="telp" required className="form-control" name="no_hp"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Address </label>
-                                        <input onChange={e => (setField({...field,address: e.target.value},setItem({...item,address:e.target.value})))} value={item.address} required className="form-control" name="address"  placeholder="" />
+                                        <input onChange={e => setField({...field,address: e.target.value})} value={field.address} required className="form-control" name="address"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Gender </label>
                                         <div>
                                             <div className="checkbox">
-                                                <input onChange={e => (setField({...field,gender: (e.target.checked===false?"F":"M")}),setItem({...item,gender: (e.target.checked===false?"F":"M")}))} checked={item.gender === "M"? true:false} id="cballshow" name="gender" type="radio" /> Male &nbsp;
-                                                <input onChange={e => (setField({...field,gender: (e.target.checked===false?"M":"F")}),setItem({...item,gender: (e.target.checked===false?"M":"F")}))}  checked={item.gender === "F"? true:false} id="cballshow" name="gender" type="radio" /> Female
+                                                <input onChange={e => setField({...field,gender: (e.target.checked===false?"F":"M")})} checked={field.gender==="M"?true:false} value="M"  name="gender" type="radio" /> Male &nbsp;
+                                                <input onChange={e => setField({...field,gender: (e.target.checked===false?"M":"F")})} checked={field.gender==="F"?true:false}  name="gender" type="radio" value="F" /> Female
                                             </div>
                                         </div>
                                     </div>

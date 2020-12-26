@@ -1,4 +1,5 @@
 import Axios from "axios";
+import EndPoint from "./EndPoint";
 import UserCookies from "./UserCookies";
 
 class ApiService {
@@ -7,8 +8,10 @@ class ApiService {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": UserCookies.get().token,
-                "UserID": UserCookies.get().userid
-            }
+                "userid": UserCookies.get().userid,
+                "oiduser": UserCookies.get().oiduser
+            },
+            params:data
         })
     }
     static post = (url,data=null) => {
@@ -16,7 +19,8 @@ class ApiService {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": UserCookies.get().token,
-                "UserID": UserCookies.get().userid
+                "userid": UserCookies.get().userid,
+                "oiduser": UserCookies.get().oiduser
             }
         })
     }
@@ -25,7 +29,8 @@ class ApiService {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": UserCookies.get().token,
-                "UserID": UserCookies.get().userid
+                "userid": UserCookies.get().userid,
+                "oiduser": UserCookies.get().oiduser
             }
         })
     }
@@ -34,11 +39,13 @@ class ApiService {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": UserCookies.get().token,
-                "UserID": UserCookies.get().userid
+                "userid": UserCookies.get().userid,
+                "oiduser": UserCookies.get().oiduser
             },
             data: data
         })
     }
+    static EndPoint = EndPoint
 }
 
 export default ApiService

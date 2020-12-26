@@ -15,8 +15,8 @@ function Item({item,setItem,sparator}) {
                 </td>
             </tr>
             {
-                item.child.map((itm, i) => (
-                    <Item key={i} item={itm} setItem={setItem} sparator={sparator + "\u00A0"+"\u00A0"+"\u00A0"+"\u00A0"+"\u00A0"+"\u00A0"+"\u00A0"+"\u00A0"+"\u00A0"} />
+                item.children.map((itm, i) => (
+                    <Item key={i} item={itm} setItem={setItem} sparator={sparator + "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"} />
                 ))
             }
         </>

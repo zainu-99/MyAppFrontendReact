@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
 import Option from './Option';
-function Add({ list }) {
-
+function Add({ reload,list }) {
     const [field, setField] = useState(
         {
             "menuText": "",
@@ -12,29 +11,36 @@ function Add({ list }) {
             "orderSort": "",
             "role": "",
             "parent": null,
-            "child": []
+            "children": []
         })
 
     const [group, setGroup] = useState([])
     const [parent, setParent] = useState([])
     useEffect(() => {
-        const resgroup = ApiService.get("http://localhost:6969/api/group", field)
+        getrel()
+    }, [list])
+    const getrel = ()=>{
+        let endpoint = ApiService.EndPoint.group
+        const resgroup = ApiService.get(endpoint, field)
         resgroup.then(res => {
             setGroup(res.data.data)
         })
-        const resparent = ApiService.get("http://localhost:6969/api/grouplevel", field)
+        endpoint = ApiService.EndPoint.grouplevel
+        const resparent = ApiService.get(endpoint, field)
         resparent.then(res => {
             setParent(res.data.data)
         })
-    }, [list])
+    }
 
     const onSubmited = e => {
         e.preventDefault();
         console.log(field)
-        const res = ApiService.post("http://localhost:6969/api/grouplevel", field)
+        let endpoint = ApiService.EndPoint.grouplevel
+        const res = ApiService.post(endpoint, field)
         res.then(res => {
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
-            list.setList(i => [...i, res.data.data])
+            reload()
+            getrel()
         })
     }
     return (
@@ -53,8 +59,8 @@ function Add({ list }) {
                                 <div className="form-group">
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Group </label>
-                                        <select className="form-control" onChange={e => setField({ ...field, group: e.target.value })} value={field.group} required>
-                                            <option value="" >--Select Role--</option>
+                                        <select className="form-control" onChange={e => setField({ ...field, group: e.target.value })} required>
+                                            <option value >--Select Role--</option>
                                             {
                                                 group.length > 0 ?
                                                 group.map((itm, i) => (
@@ -65,11 +71,11 @@ function Add({ list }) {
                                     </div> 
                                     <div className="form-group">
                                         <label>Parent </label>
-                                        <select className="form-control"  onChange={e => setField({ ...field, parent: e.target.value })} value={field.parent}>
-                                            <option value="" >--No Parent--</option>
+                                        <select className="form-control"  onChange={e => setField({ ...field, parent: e.target.value })}>
+                                            <option value >--No Parent--</option>
                                             {
                                                 parent.map((itm, i) => (
-                                                    <Option key={i} item={itm} setItem={setParent} sparator={""} />
+                                                    <Option key={i} item={itm} setID={null} sparator={""} />
                                                 ))
                                             }
                                         </select>

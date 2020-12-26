@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
-import Loading from '../../../components/utils/Loading';
 import Add from './Add';
 import Edit from './Edit';
 import Delete from './Delete';
 import ApiService from '../../../components/utils/ApiService';
-export default function Group() {    
-    let api = ApiService.get("http://localhost:6969/api/group")
+export default function Group() {  
+    let endpoint = ApiService.EndPoint.group 
     const [list, setList] = useState([])
     const [item, setItem] = useState(null)
-    useEffect(() => {
-        api.then(res => {
+    const reload = ()=>{
+        let api = ApiService.get(endpoint)
+        api.then(res=>{
             setList(res.data.data)
         })
-    },[item])
+    }
+    useEffect(() => {
+        reload()
+    },[])
 
     return (
         <div>
@@ -45,11 +48,11 @@ export default function Group() {
                     }
                 </tbody>
             </table>
-            <Add list={{list, setList}} />
+            <Add reload={reload} />
             { item !== null &&
             <div>
-                <Edit item = {item} setItem={setItem} />
-                <Delete item ={item} setItem={setItem}/>
+                <Edit item = {item} reload={reload} />
+                <Delete item ={item} reload={reload}/>
             </div>
             }
         </div>

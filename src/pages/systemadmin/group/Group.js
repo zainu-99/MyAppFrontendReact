@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
-import Loading from '../../../components/utils/Loading';
 import Add from './Add';
 import Edit from './Edit';
 import Delete from './Delete';
 import Item from './Item';
 import ApiService from '../../../components/utils/ApiService';
-export default function Group() {    
-    let api = ApiService.get("http://localhost:6969/api/grouplevel")
+import GroupRole from "./GroupRole";
+export default function Group() { 
+    let endpoint = ApiService.EndPoint.grouplevel   
     const [list, setList] = useState([])
     const [item, setItem] = useState(null)
     useEffect(() => {
-        api.then(res => {
+        reload()
+    },[])
+    const reload = ()=>{
+        let api = ApiService.get(endpoint)
+        api.then(res=>{
             setList(res.data.data)
         })
-    },[item])
+    }
 
     return (
         <div>
@@ -37,11 +41,12 @@ export default function Group() {
                     }
                 </tbody>
             </table>
-            <Add list={{list, setList}} />
+            <Add reload={reload} list={list} />
             { item !== null &&
             <div>
-                <Edit item = {item} setItem={setItem} />
-                <Delete item ={item} setItem={setItem}/>
+                <GroupRole item = {item} reload={reload} />
+                <Edit item = {item} reload={reload} />
+                <Delete item ={item} reload={reload}/>
             </div>
             }
         </div>

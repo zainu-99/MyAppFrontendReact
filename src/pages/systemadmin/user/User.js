@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
-import Loading from '../../../components/utils/Loading';
 import Add from './Add';
 import Edit from './Edit';
 import Delete from './Delete';
 import ApiService from '../../../components/utils/ApiService';
+import ResetPassword from "./ResetPassword";
+import UserGroup from "./UserGroup";
+import UserRole from "./UserRole";
 export default function User() {
-    let api = ApiService.get("http://localhost:6969/api/user")
+    let endpoint = ApiService.EndPoint.user
     const [list, setList] = useState([])
     const [item, setItem] = useState(null)
     useEffect(() => {
-        api.then(res => {
+        reload()
+    },[])
+    const reload = ()=>{
+        let api = ApiService.get(endpoint)
+        api.then(res=>{
             setList(res.data.data)
         })
-    },[item])
+    }
 
     return (
         <div>
@@ -45,19 +51,25 @@ export default function User() {
                                 <td>{itm.address}</td>
                                 <td>{itm.gender}</td>
                                 <td>
-                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> <span>&nbsp;</span> 
-                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal"   className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>
+                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#ResetPassFormModal" className="btn btn-xs btn-warning text-light"><FaIcons.FaKey /></button> <span>&nbsp;</span>
+                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#UserRoleFormModal" className="btn btn-xs btn-info"><FaIcons.FaShieldAlt /></button> <span>&nbsp;</span>
+                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#UserGroupFormModal" className="btn btn-xs btn-success"><FaIcons.FaUsers /></button> <span>&nbsp;</span>
+                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> <span>&nbsp;</span>
+                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal" className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>
                                 </td>
                             </tr>
-                        )) 
+                        ))
                     }
                 </tbody>
             </table>
-            <Add list={{list, setList}} />
+            <Add reload={reload} />
             { item !== null &&
             <div>
-                <Edit item = {item} setItem={setItem} />
-                <Delete item ={item} setItem={setItem}/>
+                <ResetPassword item = {item} reload={reload} />
+                <UserRole item = {item} reload={reload} />
+                <UserGroup item = {item} reload={reload} />
+                <Edit item = {item} reload={reload} />
+                <Delete item ={item} reload={reload}/>
             </div>
             }
         </div>

@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Add({list}) {
+function Add({reload}) {
     const [field, setField] = useState(
     {
         "name": "",   
@@ -14,10 +14,11 @@ function Add({list}) {
     
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.post("http://localhost:6969/api/group",field)
+        let endpoint = ApiService.EndPoint.group 
+        const res = ApiService.post(endpoint,field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
-            list.setList(i => [...i, res.data.data])
+            reload()
         })
     }
     return (
@@ -44,7 +45,6 @@ function Add({list}) {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div className="modal-footer">
                             <button type="reset" className="btn btn-sm btn-warning text-light" data-dismiss="modal">Cancel</button>

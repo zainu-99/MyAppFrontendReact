@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Add({list}) {
+function Add({reload}) {
     const [field, setField] = useState(
     {
         "HaveAccessView": true,
@@ -21,10 +21,11 @@ function Add({list}) {
     
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.post("http://localhost:6969/api/role",field)
+        let endpoint = ApiService.EndPoint.role
+        const res = ApiService.post(endpoint,field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaladd")).click()
-            list.setList(i => [...i, res.data.data])
+            reload()
         })
     }
     return (
@@ -59,12 +60,13 @@ function Add({list}) {
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Access</label><br/>
-                                        View <input onChange={e => setField({...field,HaveAccessView: e.target.value})} value={field.HaveAccessView} type="checkbox"   name="remark"  placeholder="" />
-                                        | Store <input onChange={e => setField({...field,HaveAccessCreate: e.target.value})} value={field.HaveAccessCreate} type="checkbox"   name="remark"  placeholder="" />
-                                        | Edit <input onChange={e => setField({...field,HaveAccessEdit: e.target.value})} value={field.HaveAccessEdit} type="checkbox"   name="remark"  placeholder="" />
-                                        | Delete <input onChange={e => setField({...field,HaveAccessDelete: e.target.value})} value={field.HaveAccessDelete} type="checkbox"   name="remark"  placeholder="" />
-                                        | Print <input onChange={e => setField({...field,HaveAccessPrint: e.target.value})} value={field.HaveAccessPrint} type="checkbox"   name="remark"  placeholder="" />
-                                        | Custom <input onChange={e => setField({...field,HaveAccessCustom: e.target.value})} value={field.HaveAccessCustom} type="checkbox"   name="remark"  placeholder="" />
+                                         <input onChange={e => setField({...field,HaveAccessView: e.target.checked})} checked={field.HaveAccessView} type="checkbox"   name="remark"  placeholder="" />
+                                         <span>&nbsp;</span>View<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessCreate: e.target.checked})} checked={field.HaveAccessCreate} type="checkbox"   name="remark"  placeholder="" />
+                                         <span>&nbsp;</span>Store<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessEdit: e.target.checked})} checked={field.HaveAccessEdit} type="checkbox"   name="remark"  placeholder="" />
+                                         <span>&nbsp;</span>Edit<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessDelete: e.target.checked})} checked={field.HaveAccessDelete} type="checkbox"   name="remark"  placeholder="" />
+                                         <span>&nbsp;</span>Delete<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessPrint: e.target.checked})} checked={field.HaveAccessPrint} type="checkbox"   name="remark"  placeholder="" />
+                                         <span>&nbsp;</span>Print<span>&nbsp;</span><span>&nbsp;</span><input onChange={e => setField({...field,HaveAccessCustom: e.target.checked})} checked={field.HaveAccessCustom} type="checkbox"   name="remark"  placeholder="" />
+                                         <span>&nbsp;</span>Custom
                                     </div>
                                 </div>
                             </div>

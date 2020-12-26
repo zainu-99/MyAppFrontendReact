@@ -1,13 +1,14 @@
 import React from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Delete({item,setItem}) {
+function Delete({item,reload}) {
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.delete("http://localhost:6969/api/user",{_id:item._id})
+        let endpoint = ApiService.EndPoint.user
+        const res = ApiService.delete(endpoint,{_id:item._id})
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaldelete")).click()
-            setItem(null)
+            reload()
             
         })
         

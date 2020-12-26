@@ -9,7 +9,6 @@ export default function Login({verify,message}) {
         const res = ApiService.post("http://localhost:6969/api/login",auth)
         res.then(res=>{
             verify(res.data)
-            console.log(res.data)
         })
     }
 

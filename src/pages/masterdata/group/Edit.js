@@ -1,17 +1,18 @@
 import React,{ useEffect, useState } from 'react'
 import ApiService from '../../../components/utils/ApiService';
 import ReactDOM from 'react-dom';
-function Edit({item,setItem}) {
+function Edit({item,reload}) {
     const [field, setField] = useState(item)
     useEffect(() => {
         setField(item)
     }, [item])
     const onSubmited = e => {
         e.preventDefault();
-        const res = ApiService.put("http://localhost:6969/api/group",field)
+        let endpoint = ApiService.EndPoint.group 
+        const res = ApiService.put(endpoint,field)
         res.then(res=>{
             ReactDOM.findDOMNode(document.querySelector("#btn-closemodaledit")).click()    
-            setItem(null)
+            reload()
         })
         
     }
@@ -32,15 +33,14 @@ function Edit({item,setItem}) {
                                 <div className="form-group">
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Name </label>
-                                        <input onChange={e => (setField({...field,name: e.target.value},setItem({...item,name:e.target.value})))} value={item.name} type="text" required className="form-control" name="name"  placeholder="" />
+                                        <input onChange={e => setField({...field,name: e.target.value})} value={field.name} type="text" required className="form-control" name="name"  placeholder="" />
                                     </div>
                                     <div className="form-group" style={{ display: '' }}>
                                         <label>Remark </label>
-                                        <input onChange={e => (setField({...field,remark: e.target.value},setItem({...item,remark:e.target.value})))} value={item.remark} type="text" required className="form-control" name="remark"  placeholder="" />
+                                        <input onChange={e => setField({...field,remark: e.target.value})} value={field.remark} type="text" required className="form-control" name="remark"  placeholder="" />
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div className="modal-footer">
                             <button type="reset" className="btn btn-sm btn-warning text-light" data-dismiss="modal">Cancel</button>
