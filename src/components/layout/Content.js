@@ -7,6 +7,7 @@ import GroupLevel from '../../pages/systemadmin/group/Group';
 import Group from '../../pages/masterdata/group/Group';
 import Role from '../../pages/masterdata/role/Role';
 import Menu from '../../pages/masterdata/menu/Menu';
+import ChangePassword from '../../pages/setting/ChangePassword';
 
 
 export default function Content() {
@@ -19,6 +20,7 @@ export default function Content() {
             <Route path={"/" + endpoint.grouplevel.replace(baseurl,"")} component={GroupLevel} />
             <Route path={"/" + endpoint.role.replace(baseurl,"")} component={Role} />
             <Route path={"/" + endpoint.menu.replace(baseurl,"")} component={Menu} />
+            <Route path={"/" + endpoint.changepassword.replace(baseurl,"")} component={ChangePassword} />
         </Switch>
 
     )

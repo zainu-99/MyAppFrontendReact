@@ -10,6 +10,9 @@ class EndPoint {
     static group = baseurl + "master/group-m";
     static role = baseurl + "master/role-m";
     static menu = baseurl + "master/menu-m";
+
+    static changepassword = baseurl + "setting/changepassword"
+
     static menuapp = "http://localhost:6969/menuapp";
 }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import UserCookies from '../utils/UserCookies'
 import Menu from './Menu'
 
 export default function Sidebar({signOut}) {
@@ -13,7 +14,7 @@ export default function Sidebar({signOut}) {
                         <img src={process.env.PUBLIC_URL + "/dist/img/user.png"} className="img-circle elevation-2" alt="profile" />
                     </div>
                     <div className="info">
-                        <a href="/#" className="d-block">190035: Admin</a>
+                        <a href="/#" className="d-block">{UserCookies.get().user.userid} | {UserCookies.get().user.name}</a>
                     </div>
                 </div>
                 <Menu signOut={signOut}/>

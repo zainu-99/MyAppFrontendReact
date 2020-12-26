@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import * as FaIcons from "react-icons/fa";
 import Loading from '../../../components/utils/Loading';
 import Add from './Add';
 import Edit from './Edit';
