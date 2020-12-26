@@ -8,8 +8,8 @@ class ApiService {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": UserCookies.get().token,
-                "userid": UserCookies.get().userid,
-                "oiduser": UserCookies.get().oiduser
+                "userid": UserCookies.get().user.userid,
+                "oiduser": UserCookies.get().user._id
             },
             params:data
         })
@@ -19,8 +19,8 @@ class ApiService {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": UserCookies.get().token,
-                "userid": UserCookies.get().userid,
-                "oiduser": UserCookies.get().oiduser
+                "userid": UserCookies.get().user.userid,
+                "oiduser": UserCookies.get().user._id
             }
         })
     }
@@ -29,8 +29,8 @@ class ApiService {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": UserCookies.get().token,
-                "userid": UserCookies.get().userid,
-                "oiduser": UserCookies.get().oiduser
+                "userid": UserCookies.get().user.userid,
+                "oiduser": UserCookies.get().user._id
             }
         })
     }
@@ -39,8 +39,8 @@ class ApiService {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": UserCookies.get().token,
-                "userid": UserCookies.get().userid,
-                "oiduser": UserCookies.get().oiduser
+                "userid": UserCookies.get().user.userid,
+                "oiduser": UserCookies.get().user._id
             },
             data: data
         })

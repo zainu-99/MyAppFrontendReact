@@ -2,11 +2,11 @@ import Cookies from "universal-cookie"
 class UserCookies {
     static get = () => {
         const cookies = new Cookies();
-        return cookies.get("user_login") || { token: "", oiduser: "", userid: "", islogin: false }
+        return cookies.get("AuthUser") || { token: "", user: {}, islogin: false }
     }
-    static set = (user) => {
+    static set = (auth) => {
         const cookies = new Cookies();
-        cookies.set("user_login", user,{ path: '/*' })
+        cookies.set("AuthUser", auth ,{ path: '/' })
     }
 
 }
