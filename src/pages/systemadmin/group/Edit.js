@@ -15,12 +15,16 @@ function Edit({item,reload}) {
         let endpoint = ApiService.EndPoint.group
         const resgroup = ApiService.get(endpoint, field)
         resgroup.then(res => {
-            setGroup(res.data.data)
+            if (res.data.message == "Successfully") {
+                setGroup(res.data.data)
+            }
         })
         endpoint = ApiService.EndPoint.grouplevel
         const resparent = ApiService.get(endpoint, field)
         resparent.then(res => {
-            setParent(res.data.data)
+            if (res.data.message == "Successfully") {
+                setParent(res.data.data)
+            }
         })
     }, [item])
 

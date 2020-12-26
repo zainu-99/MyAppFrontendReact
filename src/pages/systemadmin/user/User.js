@@ -7,23 +7,30 @@ import ApiService from '../../../components/utils/ApiService';
 import ResetPassword from "./ResetPassword";
 import UserGroup from "./UserGroup";
 import UserRole from "./UserRole";
+import ButtonAdd from "../../../components/layout/ButtonAdd";
+import Access from "../../../components/utils/Access";
+import ButtonEdit from "../../../components/layout/ButtonEdit";
+import ButtonDelete from "../../../components/layout/ButtonDelete";
 export default function User() {
     let endpoint = ApiService.EndPoint.user
     const [list, setList] = useState([])
     const [item, setItem] = useState(null)
     useEffect(() => {
         reload()
-    },[])
-    const reload = ()=>{
+    }, [])
+    const reload = () => {
         let api = ApiService.get(endpoint)
-        api.then(res=>{
-            setList(res.data.data)
+        api.then(res => {
+            if (res.data.message == "Successfully") {
+                Access.set(res.data.access)
+                setList(res.data.data)
+            }
         })
     }
 
     return (
         <div>
-            <button className="btn btn-sm btn-info" data-toggle="modal" data-target="#CreateFormModal"><FaIcons.FaPlusCircle /> Create User</button>
+            <ButtonAdd haveAccess={Access.get().allowCreate} />
             <br />
             <br />
             <table className="table table-hover">
@@ -54,8 +61,8 @@ export default function User() {
                                     <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#ResetPassFormModal" className="btn btn-xs btn-warning text-light"><FaIcons.FaKey /></button> <span>&nbsp;</span>
                                     <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#UserRoleFormModal" className="btn btn-xs btn-info"><FaIcons.FaShieldAlt /></button> <span>&nbsp;</span>
                                     <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#UserGroupFormModal" className="btn btn-xs btn-success"><FaIcons.FaUsers /></button> <span>&nbsp;</span>
-                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> <span>&nbsp;</span>
-                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal" className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>
+                                    <ButtonEdit haveAccess={Access.get().allowEdit} itm={itm} setItem={setItem} />
+                                    <ButtonDelete haveAccess={Access.get().allowDelete} itm={itm} setItem={setItem} />
                                 </td>
                             </tr>
                         ))
@@ -64,13 +71,13 @@ export default function User() {
             </table>
             <Add reload={reload} />
             { item !== null &&
-            <div>
-                <ResetPassword item = {item} reload={reload} />
-                <UserRole item = {item} reload={reload} />
-                <UserGroup item = {item} reload={reload} />
-                <Edit item = {item} reload={reload} />
-                <Delete item ={item} reload={reload}/>
-            </div>
+                <div>
+                    <ResetPassword item={item} reload={reload} />
+                    <UserRole item={item} reload={reload} />
+                    <UserGroup item={item} reload={reload} />
+                    <Edit item={item} reload={reload} />
+                    <Delete item={item} reload={reload} />
+                </div>
             }
         </div>
     )

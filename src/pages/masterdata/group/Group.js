@@ -4,23 +4,30 @@ import Add from './Add';
 import Edit from './Edit';
 import Delete from './Delete';
 import ApiService from '../../../components/utils/ApiService';
-export default function Group() {  
-    let endpoint = ApiService.EndPoint.group 
+import Access from "../../../components/utils/Access";
+import ButtonAdd from "../../../components/layout/ButtonAdd";
+import ButtonEdit from "../../../components/layout/ButtonEdit";
+import ButtonDelete from "../../../components/layout/ButtonDelete";
+export default function Group() {
+    let endpoint = ApiService.EndPoint.group
     const [list, setList] = useState([])
     const [item, setItem] = useState(null)
-    const reload = ()=>{
+    const reload = () => {
         let api = ApiService.get(endpoint)
-        api.then(res=>{
-            setList(res.data.data)
+        api.then(res => {
+            if (res.data.message == "Successfully") {
+                Access.set(res.data.access)
+                setList(res.data.data)
+            }
         })
     }
     useEffect(() => {
         reload()
-    },[])
+    }, [])
 
     return (
         <div>
-            <button className="btn btn-sm btn-info" data-toggle="modal" data-target="#CreateFormModal"><FaIcons.FaPlusCircle /> Create User</button>
+            <ButtonAdd haveAccess={Access.get().allowCreate} />
             <br />
             <br />
             <table className="table table-hover">
@@ -40,8 +47,8 @@ export default function Group() {
                                 <td>{itm.name}</td>
                                 <td>{itm.remark}</td>
                                 <td>
-                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#EditFormModal" className="btn btn-xs btn-primary"><FaIcons.FaEdit /></button> <span>&nbsp;</span>  
-                                    <button onClick={e => setItem(itm)} data-toggle="modal" data-target="#DeleteFormModal"   className="btn btn-xs btn-danger"><FaIcons.FaTrash /></button>
+                                    <ButtonEdit haveAccess={Access.get().allowEdit} itm={itm} setItem={setItem} />
+                                    <ButtonDelete haveAccess={Access.get().allowDelete} itm={itm} setItem={setItem} />
                                 </td>
                             </tr>
                         ))
@@ -50,10 +57,10 @@ export default function Group() {
             </table>
             <Add reload={reload} />
             { item !== null &&
-            <div>
-                <Edit item = {item} reload={reload} />
-                <Delete item ={item} reload={reload}/>
-            </div>
+                <div>
+                    <Edit item={item} reload={reload} />
+                    <Delete item={item} reload={reload} />
+                </div>
             }
         </div>
     )

@@ -4,7 +4,7 @@ import ItemMenu from './ItemMenu';
 export default function Menu({ signOut }) {
     const [menu, setMenu] = useState([])
     useEffect(() => {
-        let endpoint = ApiService.EndPoint.menu 
+        let endpoint = ApiService.EndPoint.menuapp 
         const api = ApiService.get(endpoint)
         api.then(res => {
             if(res.data.message === "Successfully")

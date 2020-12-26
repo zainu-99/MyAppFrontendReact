@@ -14,6 +14,7 @@ function GroupRole({ item, reload }) {
         let endpoint = ApiService.EndPoint.grouplevelrole
         const resgroup = ApiService.get(endpoint, { "grouplevel": id })
         resgroup.then(res => {
+            console.log(res.data)
             setGroupRole(res.data.data)
             setField([])
         })

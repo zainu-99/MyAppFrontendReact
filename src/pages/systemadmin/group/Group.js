@@ -6,6 +6,8 @@ import Delete from './Delete';
 import Item from './Item';
 import ApiService from '../../../components/utils/ApiService';
 import GroupRole from "./GroupRole";
+import Access from "../../../components/utils/Access";
+import ButtonAdd from "../../../components/layout/ButtonAdd";
 export default function Group() { 
     let endpoint = ApiService.EndPoint.grouplevel   
     const [list, setList] = useState([])
@@ -16,13 +18,16 @@ export default function Group() {
     const reload = ()=>{
         let api = ApiService.get(endpoint)
         api.then(res=>{
-            setList(res.data.data)
+            if (res.data.message == "Successfully") {
+                Access.set(res.data.access)
+                setList(res.data.data)
+            }
         })
     }
 
     return (
         <div>
-            <button className="btn btn-sm btn-info" data-toggle="modal" data-target="#CreateFormModal"><FaIcons.FaPlusCircle /> Create User</button>
+             <ButtonAdd haveAccess={Access.get().allowCreate} />
             <br />
             <br />
             <table className="table table-hover">
