@@ -28,7 +28,7 @@ export default function Menu() {
             <ButtonAdd haveAccess={Access.get().allowCreate} />
             <br />
             <br />
-            <table className="table table-hover">
+            <table id="datatable" className="table table-hover">
                 <thead>
                     <tr>
                         <th>MenuText</th>

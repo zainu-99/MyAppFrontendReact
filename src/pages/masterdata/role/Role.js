@@ -31,7 +31,7 @@ export default function Role() {
             <br />
             <br />
             <div style={{ overflow: 'auto' }}>
-                <table className="table table-hover">
+                <table id="datatable" className="table table-hover">
                     <thead>
                         <tr>
                             <th>No</th>

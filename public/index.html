@@ -51,7 +51,14 @@
     });
   </script>
   <script>
-    
+    $(document).ready(() => {
+      $('#datatable').on('change', 'input', function (){
+        $('#datatable').DataTable({
+          "destroy": true
+        });
+      });
+    })
   </script>
 </body>
+
 </html>
