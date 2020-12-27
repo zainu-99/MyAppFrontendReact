@@ -16,7 +16,7 @@ function ChangePassword() {
     }
     const verify = res => {
         setMessage(res.message)
-        if (res.message == "Password wrong") setMessage(res.message)
+        if (res.message === "Password wrong") setMessage(res.message)
         else {
             if(password.newPassword !== password.confirmPassword){
                 setMessage("New Password and Confrim Password Not Match")

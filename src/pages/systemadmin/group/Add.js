@@ -23,14 +23,14 @@ function Add({ reload,list }) {
         let endpoint = ApiService.EndPoint.group
         const resgroup = ApiService.get(endpoint, field)
         resgroup.then(res => {
-            if (res.data.message == "Successfully") {
+            if (res.data.message === "Successfully") {
                 setGroup(res.data.data)
             }
         })
         endpoint = ApiService.EndPoint.grouplevel
         const resparent = ApiService.get(endpoint, field)
         resparent.then(res => {
-            if (res.data.message == "Successfully") {
+            if (res.data.message === "Successfully") {
                 setParent(res.data.data)
             }
         })

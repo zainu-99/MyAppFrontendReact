@@ -1,4 +1,3 @@
-import React from 'react'
 class Access { 
     static get = () => {
         return JSON.parse(sessionStorage.getItem("access")) || {

@@ -25,7 +25,7 @@ function Add({ reload,list }) {
         let endpoint = ApiService.EndPoint.role
         const resrole = ApiService.get(endpoint, field)
         resrole.then(res => {
-            if (res.data.message == "Successfully") {
+            if (res.data.message === "Successfully") {
                 setRoles(res.data.data)
             }
         })

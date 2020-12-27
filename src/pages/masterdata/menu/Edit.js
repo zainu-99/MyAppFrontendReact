@@ -15,14 +15,14 @@ function Edit({ item, reload }) {
         let endpoint = ApiService.EndPoint.role
         const resrole = ApiService.get(endpoint, field)
         resrole.then(res => {
-            if (res.data.message == "Successfully") {
+            if (res.data.message === "Successfully") {
                 setRoles(res.data.data)
             }
         })
         endpoint = ApiService.EndPoint.menu
         const resparent = ApiService.get(endpoint, field)
         resparent.then(res => {
-            if (res.data.message == "Successfully") {
+            if (res.data.message === "Successfully") {
                 setParent(res.data.data)
             }
         })

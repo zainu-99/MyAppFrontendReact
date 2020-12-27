@@ -21,7 +21,7 @@ export default function User() {
     const reload = () => {
         let api = ApiService.get(endpoint)
         api.then(res => {
-            if (res.data.message == "Successfully") {
+            if (res.data.message === "Successfully") {
                 Access.set(res.data.access)
                 setList(res.data.data)
             }
